@@ -69,12 +69,25 @@ function App() {
     }
     return () => null
   }
+  const refreshExpectValue = () => {
+    setState({
+      ...state,
+      expectValue: sample(slotItem),
+    })
+  }
   return (
     <div className="App">
-      <button onClick={() => handleStop()}>stop</button>
-      <button onClick={() => handleSlowdown()}>slowdown</button>
-      <button onClick={() => handlePlay(0.1)}>play</button>
-      <span>Expect value: {state.expectValue}</span>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <button onClick={() => handlePlay(0.1)}>play</button>
+          <button onClick={() => handleSlowdown()}>slowdown</button>
+          <button onClick={() => handleStop()}>stop</button>
+        </div>
+        <div>
+          <span>Expect value: {state.expectValue}</span>
+          <button onClick={() => refreshExpectValue()} disabled={state.action !== 'stop'}>Random Value</button>
+        </div>
+      </div>
       <MyBox
         page={state.page}
         duration={state.duration}
